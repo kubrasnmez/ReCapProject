@@ -18,10 +18,20 @@ namespace ConsoleUI
             //ColorAdd();
 
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetail())
+            var result = carManager.GetCarDetail();
+            if(result.Success == true)
             {
-                Console.WriteLine(car.Description + "\t" + car.BrandName + "\t" + car.ColorName + "\t" + car.DailyPrice);
+                foreach (var car in carManager.GetCarDetail().Data)
+                {
+                    Console.WriteLine(car.Description + "\t" + car.BrandName + "\t" + car.ColorName + "\t" + car.DailyPrice);
+
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+  
 
         }
 
@@ -67,7 +77,7 @@ namespace ConsoleUI
                 ModelYear = 2016,
                 Description = "Hyundai 2016"
             });
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car.Id + "\t" + car.BrandId + "\t" + car.ColorId + "\t" + car.DailyPrice + "\t" + car.ModelYear + "\t" + car.Description);
             }
