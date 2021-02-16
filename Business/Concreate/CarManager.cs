@@ -55,7 +55,7 @@ namespace Business.Concreate
 
         public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>( _carDal.Get(p=>p.Id == id));
+            return new SuccessDataResult<Car>( _carDal.Get(p=>p.CarId == id));
             
         }
 

@@ -16,11 +16,11 @@ namespace DataAccess.Concreate.InMemory
         public InMemoryCarDal()
         { 
             _cars = new List<Car> { 
-                new Car{Id=1, BrandId = 1, ColorId = 1, DailyPrice = 50, ModelYear = 2001, Description = "Otomatik Vites, 5 koltuk" },
-                new Car{Id=2, BrandId = 2, ColorId = 2, DailyPrice = 70, ModelYear = 2006, Description = "Otomatik Vites, 5 koltuk" },
-                new Car{Id=3, BrandId = 1, ColorId = 3, DailyPrice = 90, ModelYear = 2008, Description = "Otomatik Vites, 5 koltuk" },
-                new Car{Id=4, BrandId = 2, ColorId = 2, DailyPrice = 50, ModelYear = 2002, Description = "Manuel Vites, 5 koltuk" },
-                new Car{Id=5, BrandId = 1, ColorId = 1, DailyPrice = 100, ModelYear = 2007, Description = "Otomatik Vites, 5 koltuk" },
+                new Car{CarId=1, BrandId = 1, ColorId = 1, DailyPrice = 50, ModelYear = 2001, Description = "Otomatik Vites, 5 koltuk" },
+                new Car{CarId=2, BrandId = 2, ColorId = 2, DailyPrice = 70, ModelYear = 2006, Description = "Otomatik Vites, 5 koltuk" },
+                new Car{CarId=3, BrandId = 1, ColorId = 3, DailyPrice = 90, ModelYear = 2008, Description = "Otomatik Vites, 5 koltuk" },
+                new Car{CarId=4, BrandId = 2, ColorId = 2, DailyPrice = 50, ModelYear = 2002, Description = "Manuel Vites, 5 koltuk" },
+                new Car{CarId=5, BrandId = 1, ColorId = 1, DailyPrice = 100, ModelYear = 2007, Description = "Otomatik Vites, 5 koltuk" },
             
             };
         }
@@ -33,7 +33,7 @@ namespace DataAccess.Concreate.InMemory
         {
             //SingleOrDefault - Id bazlılarda kullanılır. Tek değer döndürür.
             //LINQ
-            Car carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id); //Tek tek dolaşmak
+            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId); //Tek tek dolaşmak
             _cars.Remove(carToDelete);
         }
 
@@ -66,7 +66,7 @@ namespace DataAccess.Concreate.InMemory
         public void Update(Car car)
         {
             //Gönderdiğim ürün id'sine sahip olan listedeki ürünü bul
-            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == car.Id); //Tek tek dolaşmak
+            Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId); //Tek tek dolaşmak
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.DailyPrice = car.DailyPrice;
