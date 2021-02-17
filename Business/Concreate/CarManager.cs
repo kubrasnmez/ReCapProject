@@ -41,7 +41,7 @@ namespace Business.Concreate
         {
             
             //İş Kodları
-            if(DateTime.Now.Hour ==23)
+            if(DateTime.Now.Hour ==18)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
