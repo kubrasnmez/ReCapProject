@@ -1,12 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concreate;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Core.CrossCuttingConcerns.Validation.ValitadionTool;
 
 namespace Business.Concreate
 {
@@ -18,17 +21,14 @@ namespace Business.Concreate
         {
             _carDal = carDal;
         }
-
+        
         public IResult Add(Car car)
         {
-           if(car.Description.Length>2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-          
-                return new ErrorResult(Messages.CarNameInvalid);
-            
+            ValidationTool.Validate(new CarValidator(), car);
+            //business codes 
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
+           
         }
 
         public IResult Delete(Car car)
