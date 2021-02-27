@@ -39,5 +39,9 @@ namespace Business.Constants
         public static string RentalListed = "Kira Listelendi";
         public static string RentalInvalid = "Kiralama geçersiz";
 
+        public static string CarImageAdded = "Resim eklendi.";
+        public static string CarImageDeleted = "Resim silindi ";
+        public static string CarImageListed = "Resim listelendi";
+        public static string CarImageUpdated = "Resim güncellendi";
     }
 }
