@@ -10,7 +10,6 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Core.CrossCuttingConcerns.Validation.ValitadionTool;
 
 namespace Business.Concreate
 {
@@ -27,6 +26,7 @@ namespace Business.Concreate
         public IResult Add(Car car)
         {
             //business codes 
+           
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
            
