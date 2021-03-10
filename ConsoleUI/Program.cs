@@ -1,4 +1,5 @@
 ﻿using Business.Concreate;
+using Core.Entities.Concreate;
 using DataAccess.Concreate.EntityFramework;
 using DataAccess.Concreate.InMemory;
 using Entities.Concreate;
@@ -75,7 +76,7 @@ namespace ConsoleUI
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                Password = password
+                //Password = password
 
             };
             userManager.Add(user);
