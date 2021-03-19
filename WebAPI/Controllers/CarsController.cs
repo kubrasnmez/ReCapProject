@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -28,7 +27,6 @@ namespace WebAPI.Controllers
         
         public IActionResult GetAll()
         {
-            Thread.Sleep(1000);
             //Depemdency chain
             var result = _carService.GetAll();
             if (result.Success)
@@ -48,6 +46,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -91,7 +90,7 @@ namespace WebAPI.Controllers
         [HttpGet("getcardetail")]
         public IActionResult GetCarDetail()
         {
-            var result = _carService.GetCarDetail();
+            var result = _carService.GetCarDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -118,6 +117,29 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getbybrandandcolor")]
+        public IActionResult GetByBrandAndColor(int brandId, int colorId)
+        {
+            var result = _carService.GetCarsDetailByBrandIdAndColorId(brandId, colorId);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
 
+        }
+        /*
+        [HttpGet("getcardetailbyid")]
+        public IActionResult GetCarDetail(int carId)
+        {
+            var result = _carService.GetCarDetails(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        */
     }
 }

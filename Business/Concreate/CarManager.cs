@@ -44,7 +44,7 @@ namespace Business.Concreate
         {
             
             //İş Kodları
-            if(DateTime.Now.Hour ==18)
+            if(DateTime.Now.Hour ==20)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -62,19 +62,28 @@ namespace Business.Concreate
             
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetail()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail());
+            List<CarDetailDto> carDetails = _carDal.GetCarDetails();
+            if (carDetails == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>();
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(carDetails);
+            }
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(b => b.BrandId == brandId));
+
         }
          
-        public IDataResult<List<Car>> GetCarsByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
         }
 
         public IResult Update(Car car)
@@ -82,7 +91,11 @@ namespace Business.Concreate
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
-
+        public IDataResult<List<CarDetailDto>> GetCarsDetailByBrandIdAndColorId(int brandId, int colorId)
+        {
+           return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == brandId && p.ColorId == colorId));
+            
+        }
 
     }
 }

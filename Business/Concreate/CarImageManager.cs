@@ -10,6 +10,8 @@ using Core.Utilities.Business;
 using Microsoft.AspNetCore.Http;
 using Core.Utilities.Helpers;
 using System.Linq;
+using Core.Apects.Autofac.Validation;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concreate
 {
@@ -89,7 +91,7 @@ namespace Business.Concreate
         {
             try
             {
-                string path = @"\wwwroot\uploads\logo.jpg";
+                string path = @"\uploads\default.jpg";
                 var result = _carImageDal.GetAll(c => c.CarId == id).Any();
                 if (!result)
                 {
@@ -102,7 +104,20 @@ namespace Business.Concreate
             {
                 return new ErrorDataResult<List<CarImage>>(exception.Message);
             }
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id).ToList());
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id));
+        }
+        
+        [ValidationAspect(typeof(CarImageValidator))]
+        public IDataResult<List<CarImage>> GetImagesByCarId(int id)
+        {
+            IResult result = BusinessRules.Run(CheckIfCarImageNull(id));
+
+            if (result != null)
+            {
+                return new ErrorDataResult<List<CarImage>>(result.Message);
+            }
+
+            return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id).Data);
         }
     }
 }
