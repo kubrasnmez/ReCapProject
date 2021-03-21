@@ -18,7 +18,13 @@ namespace Business.Abstract
         IResult Update(Car car);
         IResult Delete(Car car);
         IDataResult<List<CarDetailDto>> GetCarDetails();
+
         IDataResult<List<CarDetailDto>> GetCarsDetailByBrandIdAndColorId(int brandId, int colorId);
+        //deneme
+
+        IDataResult<List<Car>> GetCarsByBrand(int brandId);
+        IDataResult<List<Car>> GetCarsByColor(int colorId);
+        //IDataResult<List<CarDetailDto>> GetCarsDetails(CarDetailFilterDto filterDto);
         //RESTFUK --> HTTP --> 
     }
 }

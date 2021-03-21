@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         {
             _carService = carService;
         }
-
+        
         [HttpGet("getall")]
         
         public IActionResult GetAll()
@@ -138,8 +138,10 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result);
-        }
+        }*/
 
-        */
+
+
+
     }
 }

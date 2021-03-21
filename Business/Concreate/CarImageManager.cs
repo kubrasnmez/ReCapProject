@@ -119,5 +119,18 @@ namespace Business.Concreate
 
             return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id).Data);
         }
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        {
+            return new SuccessDataResult<List<CarImage>>(CheckIfCarHaveNoImage(carId));
+        }
+        private List<CarImage> CheckIfCarHaveNoImage(int carId)
+        {
+            string path = @"\Images\default.jpg";
+            var result = _carImageDal.GetAll(c => c.CarId == carId);
+            if (!result.Any())
+                return new List<CarImage> { new CarImage { CarId = carId, ImagePath = path } };
+            return result;
+        }
+
     }
 }

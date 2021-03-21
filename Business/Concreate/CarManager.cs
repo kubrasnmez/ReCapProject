@@ -97,5 +97,16 @@ namespace Business.Concreate
             
         }
 
+        //deneme
+        public IDataResult<List<Car>> GetCarsByBrand(int brandId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId));
+        }
+        
+        public IDataResult<List<Car>> GetCarsByColor(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId));
+        }
+
     }
 }
