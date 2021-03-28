@@ -30,9 +30,9 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int carImageId)
+        public IActionResult GetById([FromForm(Name = ("Id"))] int Id)
         {
-            var result = _carImageService.GetById(carImageId);
+            var result = _carImageService.Get(Id);
             if (result.Success)
             {
                 return Ok(result);
@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name =("Image"))] IFormFile file, [FromForm] CarImage carImage)
+        public IActionResult Add([FromForm(Name = ("Image"))] IFormFile file, [FromForm] CarImage carImage)
         {
 
             var result = _carImageService.Add(file,carImage);
@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
         [HttpPut("update")]
         public IActionResult Update([FromForm(Name =("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
         {
-            var carImage = _carImageService.GetById(Id).Data;
+            var carImage = _carImageService.Get(Id).Data;
             var result = _carImageService.Update(file,carImage);
             if (result.Success)
             {
@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
         [HttpDelete("delete")]
         public IActionResult Delete([FromForm(Name =("Id"))] int Id)
         {
-            var carImage = _carImageService.GetById(Id).Data;
+            var carImage = _carImageService.Get(Id).Data;
             var result = _carImageService.Delete(carImage);
             if (result.Success)
             {
@@ -87,16 +87,6 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("getallbycarid")]
-        public IActionResult GetAllByCarId(int carId)
-        {
-            var result = _carImageService.GetAllByCarId(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
 
     }
 }

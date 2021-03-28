@@ -73,6 +73,11 @@ namespace DataAccess.Concreate.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             //Gönderdiğim ürün id'sine sahip olan listedeki ürünü bul

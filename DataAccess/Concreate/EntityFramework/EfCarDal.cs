@@ -14,35 +14,61 @@ namespace DataAccess.Concreate.EntityFramework
     //NuGet
     public class EfCarDal : EfEntityRepositoryBase<Car, ReCapDbContext>, ICarDal
     {
-
+        /*
         public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (ReCapDbContext context = new ReCapDbContext())
             {
+                
                 var result = from car in context.Cars
                              join color in context.Colors
                              on car.ColorId equals color.ColorId
                              join brand in context.Brands
                              on car.BrandId equals brand.BrandId
+
                              select new CarDetailDto()
                              {
                                  CarId = car.CarId,
+
                                  Description = car.Description,
                                  BrandName = brand.BrandName,
                                  ColorName = color.ColorName,
                                  DailyPrice = car.DailyPrice,
                                  ModelYear = car.ModelYear,
-                                  BrandId = car.BrandId,
-                                  ColorId = car.ColorId
+                                 BrandId = car.BrandId,
+                                 ColorId = car.ColorId,
+                                 ImagePath = (context.CarImages.Where(image => image.CarId == car.CarId).FirstOrDefault().ImagePath,
+                                 //CarImageDate = (from carImage in context.CarImages where carImage.CarId == car.CarId select carImage.Date).FirstOrDefault()
                              };
 
                 return filter == null
                     ? result.ToList()
                     : result.Where(filter).ToList();
+                
+                var result = from c in  context.Cars 
+                             join b in context.Brands
+                             on c.BrandId equals b.BrandId
+                             join co in context.Colors
+                             on c.ColorId equals co.ColorId
+                             select new CarDetailDto
+                             {
+                                 CarId = c.CarId,
+                                 BrandName = b.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice,
+                                 Description = c.Description,
+                                 ModelYear = c.ModelYear,
+                                 BrandId = b.BrandId,
+                                 ColorId = co.ColorId,
+                                 ImagePath = context.CarImages.Where(x => x.CarId == c.CarId).FirstOrDefault().ImagePath
+                             };
+                return result.ToList();
+    
             }
         }
-        /*
-        public List<CarDetailDto> GetCarDetail(Expression<Func<CarDetailDto, bool>> filter = null)
+                */
+        
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
         {
             using (ReCapDbContext context = new ReCapDbContext())
             {
@@ -59,11 +85,13 @@ namespace DataAccess.Concreate.EntityFramework
                                  DailyPrice = p.DailyPrice,
                                  Description = p.Description,
                                  ModelYear = p.ModelYear,
-                                 CarId = p.CarId
+                                 CarId = p.CarId,
+                                 ImagePath = context.CarImages.Where(x=>x.CarId == p.CarId).FirstOrDefault().ImagePath
+                                 
                              };
                 return result.ToList();
             }
         }
-        */
+        
     }
 }
