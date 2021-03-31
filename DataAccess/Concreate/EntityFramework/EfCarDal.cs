@@ -92,6 +92,25 @@ namespace DataAccess.Concreate.EntityFramework
                 return result.ToList();
             }
         }
-        
+        public CarDetailDto GetCarDetail(Expression<Func<CarDetailDto, bool>> filter)
+        {
+            using (ReCapDbContext context = new ReCapDbContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.BrandId
+                             join r in context.Colors on c.ColorId equals r.ColorId
+                             let i = context.CarImages.Where(x => x.CarId == c.CarId).FirstOrDefault()
+                             select new CarDetailDto()
+                             {
+                                 CarId = c.CarId,
+                                 BrandName = b.BrandName,
+                                 DailyPrice = c.DailyPrice,
+                                 ColorName = r.ColorName,
+                                 Description = c.Description,
+                                 
+                             };
+                return result.SingleOrDefault(filter);
+            }
+        }
     }
 }

@@ -99,6 +99,7 @@ namespace ConsoleUI
             }
             
         }
+        /*
         private static void CarDetail()
         {
             CarManager carManager = new CarManager(new EfCarDal());
@@ -116,7 +117,7 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
-
+        */
         private static void ColorAdd()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
