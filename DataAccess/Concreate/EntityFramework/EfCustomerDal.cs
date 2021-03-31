@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concreate.EntityFramework
 {
     public class EfCustomerDal : EfEntityRepositoryBase<Customer, ReCapDbContext>,ICustomerDal
     {
-        public List<CustomerDetailDto> GetCustomerDetail()
+        public List<CustomerDetailDto> GetCustomerDetail(Expression<Func<Customer, bool>> filter = null)
         {
             using (ReCapDbContext context = new ReCapDbContext())
             {

@@ -49,5 +49,9 @@ namespace Business.Concreate
             _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);
         }
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetailById(int customerId)
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetail(c => c.CustomerId == customerId),Messages.CustomerListed);
+        }
     }
 }
