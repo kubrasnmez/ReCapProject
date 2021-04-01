@@ -11,7 +11,7 @@ namespace Entities.Concreate
         public string NameOnTheCard { get; set; }
         public string CardNumber { get; set; }
         public string CardCvv  { get; set; }
-        public int ExpirationDate { get; set; }
+        public string ExpirationDate { get; set; }
         public decimal MoneyInTheCard { get; set; }
     }
 }
