@@ -86,7 +86,8 @@ namespace DataAccess.Concreate.EntityFramework
                                  Description = p.Description,
                                  ModelYear = p.ModelYear,
                                  CarId = p.CarId,
-                                 ImagePath = context.CarImages.Where(x=>x.CarId == p.CarId).FirstOrDefault().ImagePath
+                                 ImagePath = context.CarImages.Where(x=>x.CarId == p.CarId).FirstOrDefault().ImagePath,
+                                 Status = !context.Rentals.Any(r=>r.CarId == p.CarId &&(r.ReturnDate == null || r.RentDate > DateTime.Now))
                                  
                              };
                 return result.ToList();

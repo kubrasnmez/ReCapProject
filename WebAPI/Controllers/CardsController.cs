@@ -76,8 +76,20 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return Ok(result);
 
         }
+        [HttpPost("update")]
+        public IActionResult Update(Card card)
+        {
+            var result = _cardService.Update(card);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
+
 }
