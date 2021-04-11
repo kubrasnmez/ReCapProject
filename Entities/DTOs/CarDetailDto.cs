@@ -18,6 +18,8 @@ namespace Entities.DTOs
         public DateTime CarImageDate { get; set; }
         public string ImagePath { get; set; }
         public bool Status { get; set; }
+        public int CarFindex{ get; set; }
+
     }
 
 

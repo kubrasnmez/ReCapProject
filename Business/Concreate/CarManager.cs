@@ -2,7 +2,9 @@
 using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Apects.Autofac.Caching;
 using Core.Apects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concreate;
@@ -10,6 +12,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concreate
@@ -23,12 +26,14 @@ namespace Business.Concreate
             _carDal = carDal;
         }
         //Claim
-        //[SecuredOperation("car.add,admin")]
-        [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.add,admin")]
+        //[ValidationAspect(typeof(CarValidator))]
+        //[CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             //business codes 
-           
+
+            IResult result = BusinessRules.Run(CheckIfCarNameExists(car.Description));
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
            
@@ -96,6 +101,17 @@ namespace Business.Concreate
            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == brandId && p.ColorId == colorId));
             
         }
+        private IResult CheckIfCarNameExists(string carName)
+        {
+            var result = _carDal.GetAll(p => p.Description == carName).Any();
+            if (result)//==true
+            {
+                return new ErrorResult("Başka isim girin");
+            }
+
+            return new SuccessResult();
+        }
+
 
         //deneme
         public IDataResult<List<Car>> GetCarsByBrand(int brandId)

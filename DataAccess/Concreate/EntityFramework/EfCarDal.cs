@@ -87,7 +87,9 @@ namespace DataAccess.Concreate.EntityFramework
                                  ModelYear = p.ModelYear,
                                  CarId = p.CarId,
                                  ImagePath = context.CarImages.Where(x=>x.CarId == p.CarId).FirstOrDefault().ImagePath,
-                                 Status = !context.Rentals.Any(r=>r.CarId == p.CarId &&(r.ReturnDate == null || r.RentDate > DateTime.Now))
+                                 Status = !context.Rentals.Any(r=>r.CarId == p.CarId &&(r.ReturnDate == null || r.RentDate > DateTime.Now)),
+                                 //CarFindex = p.CarFindex
+                                 
                                  
                              };
                 return result.ToList();
@@ -108,6 +110,7 @@ namespace DataAccess.Concreate.EntityFramework
                                  DailyPrice = c.DailyPrice,
                                  ColorName = r.ColorName,
                                  Description = c.Description,
+                                 CarFindex = c.CarFindex
                                  
                              };
                 return result.SingleOrDefault(filter);

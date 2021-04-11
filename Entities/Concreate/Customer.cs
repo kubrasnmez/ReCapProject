@@ -10,5 +10,6 @@ namespace Entities.Concreate
         public int CustomerId { get; set; }
         public int UserId { get; set; }
         public string CompanyName { get; set; }
+        public int? CustomerFindex { get; set; }
     }
 }

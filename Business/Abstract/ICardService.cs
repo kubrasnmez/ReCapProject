@@ -15,5 +15,7 @@ namespace Business.Abstract
         IResult Add(Card card);
         IResult Update(Card card);
         IResult Delete(Card card);
+        IResult DeleteById(int cardId);
+        IDataResult<List<Card>> GetAllCreditCardByCustomerId(int customerId);
     }
 }

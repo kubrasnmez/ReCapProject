@@ -53,5 +53,9 @@ namespace Business.Concreate
         {
             return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetail(c => c.CustomerId == customerId),Messages.CustomerListed);
         }
+        public IDataResult<CustomerDetailDto> getCustomerByEmail(string email)
+        {
+            return new SuccessDataResult<CustomerDetailDto>(_customerDal.getCustomerByEmail(p => p.Email == email));
+        }
     }
 }

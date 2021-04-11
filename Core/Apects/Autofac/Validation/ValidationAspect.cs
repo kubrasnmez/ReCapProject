@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static Core.CrossCuttingConcerns.Validation.ValitadionTool;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 
 namespace Core.Apects.Autofac.Validation
 {
@@ -23,12 +23,12 @@ namespace Core.Apects.Autofac.Validation
         }
         protected override void OnBefore(IInvocation invocation)
         {
-            var validator = (IValidator)Activator.CreateInstance(_validatorType); //reflection 
-            var entityType = _validatorType.BaseType.GetGenericArguments()[0];
-            var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
+            var validator = (IValidator)Activator.CreateInstance(_validatorType);      //CarValidator ın instanceını oluştur.
+            var entityType = _validatorType.BaseType.GetGenericArguments()[0];      //CarValidatorun Base typını bul yani AbstractValidator.Bunun generic argümanlarından ilkini bul yani Car.
+            var entities = invocation.Arguments.Where(t => t.GetType() == entityType);  //Onun parametrelerini bul.Yani Addin alması gerekn parametre car.Bu parametreyle yukarıdaki parametre aynı olmalı
             foreach (var entity in entities)
             {
-                ValidationTool.Validate(validator, entity);
+                ValidationTool.Validate(validator, entity); //ValidationTool ile validate ettik.
             }
         }
     }

@@ -8,6 +8,7 @@ namespace Entities.Concreate
     public class Card : IEntity
     {
         public int CardId { get; set; }
+        public int CustomerId { get; set; }
         public string NameOnTheCard { get; set; }
         public string CardNumber { get; set; }
         public string CardCvv  { get; set; }

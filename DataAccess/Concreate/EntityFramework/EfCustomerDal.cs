@@ -14,6 +14,27 @@ namespace DataAccess.Concreate.EntityFramework
 {
     public class EfCustomerDal : EfEntityRepositoryBase<Customer, ReCapDbContext>,ICustomerDal
     {
+        public CustomerDetailDto getCustomerByEmail(Expression<Func<CustomerDetailDto, bool>> filter)
+        {
+            using (ReCapDbContext context = new ReCapDbContext())
+            {
+                var result = from customer in context.Customers
+                             join user in context.Users
+                                 on customer.UserId equals user.Id
+                             select new CustomerDetailDto
+                             {
+                                 CustomerId = customer.CustomerId,
+                                 UserId = user.Id,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 Email = user.Email,
+                                 CompanyName = customer.CompanyName,
+                                 CustomerFindex = (int)customer.CustomerFindex
+                             };
+                return result.SingleOrDefault(filter);
+            }
+        }
+
         public List<CustomerDetailDto> GetCustomerDetail(Expression<Func<Customer, bool>> filter = null)
         {
             using (ReCapDbContext context = new ReCapDbContext())
@@ -27,7 +48,8 @@ namespace DataAccess.Concreate.EntityFramework
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  CompanyName = customer.CompanyName,
-                                 Email = u.Email
+                                 Email = u.Email,
+                                 CustomerFindex = (int)customer.CustomerFindex
 
                              };
                 return result.ToList();
