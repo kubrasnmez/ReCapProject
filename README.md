@@ -1,5 +1,5 @@
 <h1>GENEL BİLGİLER</h1>
-<p>Entities, DataAccess, Business, Core ve WebAPI katmanlarından oluşan araba kiralama projesidir. Bu proje, Katmanlı mimari yapısı ve SOLID prensiplerini dikkate alınarak yazılmıştır. 
+<p>Entities, DataAccess, Business, Core ve WebAPI katmanlarından oluşan araç kiralama projesidir. Bu proje, Katmanlı mimari yapısı ve SOLID prensiplerini dikkate alınarak yazılmıştır. 
 JWT entegrasyonu; Transaction, Cache, Validation ve Performance aspect'lerinin implementasyonu gerçekleştirilmiştir. OOP olarak entity framework kullanılmaktadır.
 Validation için FluentValidation desteği, IoC için ise Autofac desteği eklenmiştir.</p>
 
